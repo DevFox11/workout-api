@@ -17,8 +17,19 @@ const getOneWorkoutController = (req, res) => {
 }
 
 const createNewWorkoutController = (req, res) => {
-    const createWorkout = createNewWorkoutService();
-    res.send("Create a new workout");
+    const body = req.body;
+    if(!body.name || !body.mode || !body.equipment || !body.exercises || !body.trainerTips) {
+        return res.status(400).send({ status: "error", message: "Please provide all required fields" });
+    }
+    const newWorkout = {
+        name: body.name,
+        mode: body.mode,
+        equipment: body.equipment,
+        exercises: body.exercises,
+        trainerTips: body.trainerTips
+    };
+    const createWorkout = createNewWorkoutService(newWorkout);
+    res.status(201).send({ status: "ok", data: createWorkout });
 }
 
 const updateOneWorkoutController = (req, res) => {

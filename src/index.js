@@ -3,6 +3,8 @@ import { router as v1WorkoutsRouter } from './v1/routes/workoutRoutes.js';
 
 
 const app = Express();
+app.use(Express.json());
+app.use(Express.urlencoded({ extended: true }));
 
 const port = process.env.PORT || 3000;
 
