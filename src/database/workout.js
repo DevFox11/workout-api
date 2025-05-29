@@ -17,9 +17,10 @@ const getOneWorkout = (workoutId) => {
 const createNewWorkout = (newWorkout) => {
     const isAlreadyAdded = DB.workouts.findIndex((workout) => workout.name === newWorkout.name) > -1;
     if (isAlreadyAdded) {
-        const error = new Error(API_MESSAGES.ERRORS.CONFLICT);
-        error.status = 409;
-        throw error;
+        return {
+            message: API_MESSAGES.ERRORS.CONFLICT,
+            status: 409
+        }
     }
     DB.workouts.push(newWorkout);
     saveToDatabase(DB);
@@ -30,9 +31,10 @@ const createNewWorkout = (newWorkout) => {
 const updateWorkout = (workoutId, body) => {
     const workoutIndex = DB.workouts.findIndex((workout) => workout.id === workoutId);
     if(workoutIndex === -1) {
-        const error = new Error(API_MESSAGES.ERRORS.NOT_FOUND);
-        error.status = 404;
-        throw error;
+        return {
+            message: API_MESSAGES.ERRORS.NOT_FOUND,
+            status: 404
+        }
     }
     const updateWorkout = {
         ...DB.workouts[workoutIndex],
@@ -48,9 +50,10 @@ const updateWorkout = (workoutId, body) => {
 const deleteWorkout = (workoutId) => {
     const workoutIndex = DB.workouts.findIndex((workout) => workout.id === workoutId);
     if (workoutIndex === -1) {
-        const error = new Error(API_MESSAGES.ERRORS.NOT_FOUND);
-        error.status = 404;
-        throw error;
+        return {
+            message: API_MESSAGES.ERRORS.NOT_FOUND,
+            status: 404
+        }
     }
     DB.workouts.splice(workoutIndex, 1);
     saveToDatabase(DB);

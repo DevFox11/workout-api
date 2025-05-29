@@ -84,6 +84,28 @@
       "id": "019de040-801e-47aa-8bd7-4db974c3e50f",
       "createdAt": "5/27/2025, 2:02:58 PM",
       "updatedAt": "5/27/2025, 2:02:58 PM"
+    },
+    {
+      "id": "c03bb04e-f800-4995-a1ac-a0f58f6a311e",
+      "name": "Manolo Core",
+      "mode": "Presas",
+      "equipment": [
+        "Mancuernas",
+        "Barras paralelas",
+        "Cuerda"
+      ],
+      "exercises": [
+        "1 hora de pesas",
+        "1 hora de paralelas",
+        "1 hora de saltar cuerda"
+      ],
+      "trainerTips": [
+        "Split your toes to bars into two sets maximum",
+        "Go unbroken on the thrusters",
+        "Take the abmat sit-ups as a chance to normalize your breath"
+      ],
+      "createdAt": "5/29/2025, 1:16:20 AM",
+      "updatedAt": "5/29/2025, 1:16:20 AM"
     }
   ]
 }

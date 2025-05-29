@@ -34,7 +34,10 @@ const updateOneWorkoutService = (workoutId, body ) => {
 const deleteOneWorkoutService = (workoutId) => {
     try {
         if (!workoutId) {
-            throw new Error( API_MESSAGES.ERRORS.VALIDATION.REQUIRED_FIELD + "workoutId");
+            return {
+                status: "error",
+                message: API_MESSAGES.ERRORS.VALIDATION.REQUIRED_FIELD + "workoutId"
+            }
         }
         const deleted = deleteWorkout(workoutId);
         return deleted;
