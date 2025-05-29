@@ -1,5 +1,6 @@
-import { getAllWorkouts, getOneWorkout, createNewWorkout, updateWorkout, deleteWorkout } from '../database/workout.js'
 import { v4 as uuid } from 'uuid'
+import { getAllWorkouts, getOneWorkout, createNewWorkout, updateWorkout, deleteWorkout } from '../database/workout.js'
+import { API_MESSAGES } from '../common/constants/messages.js'
 
 const getAllWorkoutsService = () => {
     const allWorkouts = getAllWorkouts();
@@ -29,15 +30,16 @@ const updateOneWorkoutService = (workoutId, body ) => {
     return update;
 }
 
+
 const deleteOneWorkoutService = (workoutId) => {
     try {
         if (!workoutId) {
-            throw new Error("Se requiere ID del entrenamiento");
+            throw new Error( API_MESSAGES.ERRORS.VALIDATION.REQUIRED_FIELD + "workoutId");
         }
         const deleted = deleteWorkout(workoutId);
         return deleted;
     } catch (error) {
-        throw error;
+        throw new Error(API_MESSAGES.ERRORS.INTERNAL_SERVER_ERROR);
     }
 }
 

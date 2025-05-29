@@ -1,5 +1,6 @@
 import DB from './db.json' with { type: "json" };
 import { saveToDatabase } from './utils.js';
+import { API_MESSAGES } from '../common/constants/messages.js'
 
 const getAllWorkouts = () => {
     return DB.workouts;
@@ -8,7 +9,7 @@ const getAllWorkouts = () => {
 const getOneWorkout = (workoutId) => {
     const workout = DB.workouts.find((workout) => workout.id === workoutId);
     if (!workout) {
-        throw new Error("Entrenamiento no encontrado");
+        throw new Error(API_MESSAGES.ERRORS.NOT_FOUND);
     }
     return workout;
 }
@@ -16,7 +17,9 @@ const getOneWorkout = (workoutId) => {
 const createNewWorkout = (newWorkout) => {
     const isAlreadyAdded = DB.workouts.findIndex((workout) => workout.name === newWorkout.name) > -1;
     if (isAlreadyAdded) {
-        throw new Error("El entrenamiento ya existe");
+        const error = new Error(API_MESSAGES.ERRORS.CONFLICT);
+        error.status = 409;
+        throw error;
     }
     DB.workouts.push(newWorkout);
     saveToDatabase(DB);
@@ -27,7 +30,9 @@ const createNewWorkout = (newWorkout) => {
 const updateWorkout = (workoutId, body) => {
     const workoutIndex = DB.workouts.findIndex((workout) => workout.id === workoutId);
     if(workoutIndex === -1) {
-        throw new Error("Entrenamiento no encontrado");
+        const error = new Error(API_MESSAGES.ERRORS.NOT_FOUND);
+        error.status = 404;
+        throw error;
     }
     const updateWorkout = {
         ...DB.workouts[workoutIndex],
@@ -43,11 +48,13 @@ const updateWorkout = (workoutId, body) => {
 const deleteWorkout = (workoutId) => {
     const workoutIndex = DB.workouts.findIndex((workout) => workout.id === workoutId);
     if (workoutIndex === -1) {
-        throw new Error("Entrenamiento no encontrado");
+        const error = new Error(API_MESSAGES.ERRORS.NOT_FOUND);
+        error.status = 404;
+        throw error;
     }
     DB.workouts.splice(workoutIndex, 1);
     saveToDatabase(DB);
-    return `El entrenamiento con id ${workoutId} fue eliminado exitosamente`;
+    return { message: API_MESSAGES.SUCCESS.DELETED, workoutId };
 }
 
 export {
