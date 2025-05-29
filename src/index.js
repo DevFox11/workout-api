@@ -11,5 +11,5 @@ const port = process.env.PORT || 3000;
 app.use('/api/v1/workouts', v1WorkoutsRouter);
 
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+    console.log(`Servidor ejecutándose en el puerto ${port}`);
 })

@@ -1,4 +1,4 @@
-import { getAllWorkouts, createNewWorkout } from '../database/workout.js'
+import { getAllWorkouts, getOneWorkout, createNewWorkout, updateWorkout, deleteWorkout } from '../database/workout.js'
 import { v4 as uuid } from 'uuid'
 
 const getAllWorkoutsService = () => {
@@ -6,8 +6,9 @@ const getAllWorkoutsService = () => {
     return allWorkouts;
 }
 
-const getOneWorkoutService = () => {
-    return;
+const getOneWorkoutService = (workoutId) => {
+    const workout = getOneWorkout(workoutId);
+    return workout;
 }
 
 const createNewWorkoutService = (newWorkout) => {
@@ -23,12 +24,21 @@ const createNewWorkoutService = (newWorkout) => {
     return createdWorkout;
 }   
 
-const updateOneWorkoutService = () => {
-    return;
+const updateOneWorkoutService = (workoutId, body ) => {
+    const update = updateWorkout(workoutId, body);
+    return update;
 }
 
-const deleteOneWorkoutService = () => {
-    return;
+const deleteOneWorkoutService = (workoutId) => {
+    try {
+        if (!workoutId) {
+            throw new Error("Se requiere ID del entrenamiento");
+        }
+        const deleted = deleteWorkout(workoutId);
+        return deleted;
+    } catch (error) {
+        throw error;
+    }
 }
 
 export { 
